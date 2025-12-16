@@ -1,8 +1,8 @@
 # TPfinaleInfraCloud
 
 
-RENDU:
-
+## RENDU:
+### Init 
 ```
 gcloud projects create tp-final-gke-martin
 
@@ -21,7 +21,7 @@ gcloud services enable \
 
 ```
 
-Quand les fichiers terraform sont créés
+Quand les fichiers terraform sont créés, lancer les commandes suivantes:
 
 ```
 terraform init
@@ -30,6 +30,7 @@ terraform apply
 
 ```
 
+Créer les comptes de services
 ```
 gcloud iam service-accounts create github-actions-sa \
         --display-name "GitHub Actions Service Account"
@@ -51,16 +52,15 @@ gcloud iam service-accounts keys create github-actions-sa-key.json \
 
 ```
 
-
-une fois push et la ci-cd passé 
+Une fois push et la pipeline passée
 
 ```
 gcloud container clusters get-credentials gke-autopilot --region europe-west1
 
-
 ```
 
 Récupérer l'ip:
+
 ```
 kubectl get svc my-app-service
 
@@ -73,4 +73,13 @@ my-app-service   LoadBalancer   34.118.226.13   104.155.44.246   80:32336/TCP   
 curl http://104.155.44.246
 
 Hello la team :)⏎                        
+```
+
+Maintenant passage en https:
+
+La pipeline le fait automatiquement, il faut simplement récupérer l'IP de l'Ingress, et mettre un enregistrement de type A sur cette IP, ensuite le certificat va se générer automatiquement.
+
+```
+curl https://orealyz.fr/
+Hello la team :)⏎     
 ```
