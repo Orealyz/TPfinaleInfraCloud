@@ -83,3 +83,6 @@ La pipeline le fait automatiquement, il faut simplement récupérer l'IP de l'In
 curl https://orealyz.fr/
 Hello la team :)⏎     
 ```
+
+
+HTTP est maintenant bloquer, on peut passer que par HTTPS.

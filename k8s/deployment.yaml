@@ -17,3 +17,19 @@ spec:
         image: europe-west1-docker.pkg.dev/tp-final-gke-martin/app-repo/my-app:latest
         ports:
         - containerPort: 5000
+        env:
+        - name: DB_HOST
+          value: "127.0.0.1"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: "myuser"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: password
+        - name: DB_NAME
+          value: "myapp"
+        - name: DB_SOCKET_DIR
+          value: "/cloudsql"

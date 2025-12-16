@@ -36,6 +36,12 @@ jobs:
     - name: Get GKE credentials
       run: |
         gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --region ${{ secrets.GCP_REGION }}
+    - name: Create Kubernetes secret for DB password
+      run: |
+        kubectl create secret generic cloudsql-db-credentials --from-literal=password=${{ secrets.DB_PASSWORD }} --dry-run=client -o yaml | kubectl apply -f -
+    - name: Deploy Cloud SQL Proxy
+      run: |
+        kubectl apply -f k8s/cloudsql-proxy.yaml
 
     - name: Deploy to GKE
       run: |
