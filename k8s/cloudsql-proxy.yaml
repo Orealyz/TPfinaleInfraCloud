@@ -13,8 +13,10 @@ spec:
         app: cloudsql-proxy
     spec:
       containers:
+      containers:
       - name: cloudsql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.38.1
+        image: gcr.io/cloudsql-docker/gce-proxy:latest
+
         command:
           - "/cloud_sql_proxy"
           - "-instances=tp-final-gke-martin:europe-west1:my-app-db=tcp:5432"
