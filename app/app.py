@@ -4,7 +4,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-DB_HOST = os.environ.get("DB_HOST", "127.0.0.1")
+DB_HOST = os.environ.get("DB_HOST", "/cloudsql/tp-final-gke-martin:europe-west1:my-app-db")
 DB_PORT = int(os.environ.get("DB_PORT", 5432))
 DB_NAME = os.environ.get("DB_NAME", "myapp")
 DB_USER = os.environ.get("DB_USER", "myuser")

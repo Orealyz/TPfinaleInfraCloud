@@ -13,23 +13,27 @@ spec:
         app: my-app
     spec:
       containers:
-      - name: my-app
-        image: europe-west1-docker.pkg.dev/tp-final-gke-martin/app-repo/my-app:latest
-        ports:
-        - containerPort: 5000
-        env:
-        - name: DB_HOST
-          value: "127.0.0.1"
-        - name: DB_PORT
-          value: "5432"
-        - name: DB_USER
-          value: "myuser"
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: cloudsql-db-credentials
-              key: password
-        - name: DB_NAME
-          value: "myapp"
-        - name: DB_SOCKET_DIR
-          value: "/cloudsql"
+        - name: my-app
+          image: europe-west1-docker.pkg.dev/tp-final-gke-martin/app-repo/my-app:latest
+          command: ["/bin/sh", "-c", "sleep 3600"]
+          env:
+            - name: DB_HOST
+              value: "127.0.0.1"  # ou cloudsql-proxy.default.svc.cluster.local si proxy séparé
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: database
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: password
+

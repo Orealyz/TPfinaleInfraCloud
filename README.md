@@ -86,3 +86,39 @@ Hello la team :)⏎
 
 
 HTTP est maintenant bloquer, on peut passer que par HTTPS.
+
+
+# Partie DB:
+
+```
+gcloud sql instances create my-app-db \
+                                                 --database-version=POSTGRES_15 \
+                                                 --region=europe-west1 \
+                                                 --tier=db-g1-small
+
+
+```
+
+```
+gcloud sql databases create myapp --instance=my-app-db
+
+                                       gcloud sql users create myuser \
+                                             --instance=my-app-db \
+                                             --password=STRONG_PASSWORD
+
+```
+
+```
+gcloud projects add-iam-policy-binding tp-final-gke-martin \
+                                                   --member="serviceAccount:683176688160-compute@developer.gserviceaccount.com" \
+                                                   --role="roles/cloudsql.client"
+
+```
+
+
+```
+gcloud projects add-iam-policy-binding tp-final-gke-martin \
+                                               --member="serviceAccount:github-actions-sa@tp-final-gke-martin.iam.gserviceaccount.com" \
+                                               --role="roles/cloudsql.client"
+
+```
